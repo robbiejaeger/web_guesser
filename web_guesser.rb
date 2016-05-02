@@ -6,10 +6,10 @@ SECRET_NUMBER = rand(101)
 get '/' do
   guess = params['guess']
   cheat = params['cheat']
-  if cheat == "true"
-    message, background_color = "The SECRET NUMBER is #{SECRET_NUMBER}.", "#FFFFFF"
-  elsif guess.nil? && cheat.nil?
-    message, background_color = "Enter a guess.", "#FFFFFF"
+  if guess.nil? && cheat.nil?
+    message, background_color = no_params
+  elsif cheat == "true"
+    message, background_color = give_cheat
   else
     message, background_color = check_guess(guess.to_i)
   end
@@ -28,4 +28,12 @@ def check_guess(guess)
   elsif guess == SECRET_NUMBER
     return "You got it right! The SECRET NUMBER is #{SECRET_NUMBER}.", "#6CBB3C"
   end
+end
+
+def give_cheat
+  return "The SECRET NUMBER is #{SECRET_NUMBER}.", "#FFFFFF"
+end
+
+def no_params
+  return "Enter a guess.", "#FFFFFF"
 end
